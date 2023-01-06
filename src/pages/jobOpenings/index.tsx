@@ -109,7 +109,10 @@ const JobOpenings = () => {
   }
 
   const onChange = (e: any) => {
-    if (e.code === "Enter") getData();
+    if (e.code === "Enter") {
+      localStorage.setItem("search", searchBoxRef.current.value);
+      getData();
+    }
   };
 
   useEffect(() => {
@@ -118,6 +121,7 @@ const JobOpenings = () => {
   }, []);
 
   useEffect(() => {
+    searchBoxRef.current.value = localStorage.getItem("search");
     getData();
   }, [state]);
 
