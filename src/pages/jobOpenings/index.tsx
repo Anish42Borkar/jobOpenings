@@ -5,7 +5,7 @@ import {
   BuildingOfficeIcon,
   MapPinIcon,
 } from "@heroicons/react/24/solid";
-import { ResponseData } from "./types";
+import { ResponseData, StateProps } from "./types";
 import { Fragment, RefObject, useEffect, useRef, useState } from "react";
 import { filterData } from "../../utility/filterData";
 import DropdownSearchBox, {
@@ -17,14 +17,8 @@ import { NavLink } from "react-router-dom";
 
 const JobOpenings = () => {
   const searchBoxRef = useRef<any>(null);
-  const list = JSON.parse(localStorage.getItem("filterList")!);
-  const [state, setState] = useState<
-    Array<{
-      id: number | string;
-      title: string;
-      filter: string;
-    }>
-  >(list || []);
+  const list = JSON.parse(localStorage.getItem("filterList")!) as StateProps[];
+  const [state, setState] = useState<StateProps[]>(list || []);
 
   function setStateValues(
     data: DropdownSearchBoxDataType,
@@ -61,14 +55,14 @@ const JobOpenings = () => {
     localStorage.setItem("filterList", JSON.stringify([]));
   }
 
-  const { request, requstedData } = useApiResquestHandler();
+  const { request, requstedData } = useApiResquestHandler<ResponseData[]>();
 
   const { request: requestFunctions, requstedData: requstedDataFunctions } =
-    useApiResquestHandler();
+    useApiResquestHandler<DropdownSearchBoxDataType[]>();
   const { request: requestLocation, requstedData: requstedDataLocation } =
-    useApiResquestHandler();
+    useApiResquestHandler<DropdownSearchBoxDataType[]>();
   const { request: requestDepartmemt, requstedData: requstedDataDepartmemt } =
-    useApiResquestHandler();
+    useApiResquestHandler<DropdownSearchBoxDataType[]>();
 
   async function getData() {
     const location = state?.map((val) => {

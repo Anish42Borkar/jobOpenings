@@ -1,3 +1,9 @@
+export type StateProps = {
+  id: number | string;
+  title: string;
+  filter: string;
+};
+
 export interface ResponseData {
   id: number;
   code: string;
