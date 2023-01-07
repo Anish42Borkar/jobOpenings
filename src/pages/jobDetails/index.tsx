@@ -48,9 +48,13 @@ const JobDetails = () => {
       </div>
 
       <div className="my-10">
-        <button className="bg-link hover:bg-blue-500 text-white font-semibold text-sm py-2 px-10 rounded-full">
+        <a
+          href={responseData.applyUrl}
+          target="_blank"
+          className="bg-link hover:bg-blue-500 text-white font-semibold text-sm py-2 px-10 rounded-full"
+        >
           Apply
-        </button>
+        </a>
       </div>
       <hr />
       <div className="grid grid-cols-1 lg:grid-cols-4 md: gap-3 mt-8">
@@ -69,9 +73,13 @@ const JobDetails = () => {
                   <Fragment key={key}>
                     <div className="hover:bg-secoundary mb-4 flex justify-between items-end py-3 px-3">
                       <div className="">
-                        <p className="font-bold text-md mb-2">
+                        <a
+                          href={subDept.hostedUrl}
+                          target="_blank"
+                          className="font-bold text-md mb-2 hover:text-link transition-all"
+                        >
                           {subDept.title}
-                        </p>
+                        </a>
                         <div className="flex gap-5 flex-wrap">
                           <div className="flex items-center gap-1">
                             <BuildingOfficeIcon className="w-4 h-4 text-gray-400" />
