@@ -12,8 +12,8 @@ const JobDetails = () => {
   const location = useLocation();
   const { jobOpenings } = location.state;
   const { id } = params;
-  const { request, requstedData } = useApiResquestHandler();
-  const responseData = requstedData as unknown as ResponseData;
+  const { request, requstedData } = useApiResquestHandler<ResponseData>();
+
   async function getDetails() {
     await request({
       path: `api/v1/jobs/${id}`,
@@ -26,30 +26,29 @@ const JobDetails = () => {
 
   return (
     <div className="py-7 px-9">
-      {/* <pre>{JSON.stringify(jobOpenings)}</pre> */}
       <p className="font-bold">
-        Development Department At {responseData?.company}
+        Development Department At {requstedData?.company}
       </p>
       <div className="">
-        <p className="font-bold text-xl mb-2">{responseData?.title}</p>
+        <p className="font-bold text-xl mb-2">{requstedData?.title}</p>
         <div className="flex gap-5 flex-wrap">
           <div className="flex items-center">
             <BuildingOfficeIcon className="w-4 h-4 text-gray-400" />
-            <p className="text-sm">{responseData?.department?.title}</p>
+            <p className="text-sm">{requstedData?.department?.title}</p>
           </div>
           <div className="flex items-center">
             <MapPinIcon className="w-4 h-4 text-gray-400" />
-            <p className="text-sm ">{responseData?.location?.title}</p>
+            <p className="text-sm ">{requstedData?.location?.title}</p>
           </div>
           <p className="text-sm bg-grayShade py-0.5 px-5 ">
-            {responseData?.type || "N/A"}
+            {requstedData?.type || "N/A"}
           </p>
         </div>
       </div>
 
       <div className="my-10">
         <a
-          href={responseData.applyUrl}
+          href={requstedData.applyUrl}
           target="_blank"
           className="bg-link hover:bg-blue-500 text-white font-semibold text-sm py-2 px-10 rounded-full"
         >
@@ -60,7 +59,7 @@ const JobDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 md: gap-3 mt-8">
         <div
           className="col-span-3"
-          dangerouslySetInnerHTML={{ __html: responseData?.description }}
+          dangerouslySetInnerHTML={{ __html: requstedData?.description }}
         />
         <div className="">
           <div className="bg-blue-500/20 px-2 py-2 h-fit">

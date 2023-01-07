@@ -6,13 +6,18 @@ type Request = {
   data?: object;
   headers?: object;
   method?: "post" | "get";
-
   callBack?: (state: any) => void;
   onError?: (error: unknown) => void;
   onFinally?: () => void;
 };
 
-export const useApiResquestHandler = () => {
+interface UseApiResquestHandler<T> {
+  request: ({}: Request) => Promise<void>;
+  isLoading: boolean;
+  requstedData: T;
+}
+
+export const useApiResquestHandler = <T>(): UseApiResquestHandler<T> => {
   const { get, post } = useApiHook();
 
   const [requstedData, setRequstedData] = useState([]);
@@ -49,7 +54,7 @@ export const useApiResquestHandler = () => {
     request,
     isLoading,
     requstedData,
-  };
+  } as UseApiResquestHandler<T>;
 };
 
 export default useApiResquestHandler;
