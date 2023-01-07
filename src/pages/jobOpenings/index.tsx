@@ -24,7 +24,7 @@ const JobOpenings = () => {
       title: string;
       filter: string;
     }>
-  >(list);
+  >(list || []);
 
   function setStateValues(
     data: DropdownSearchBoxDataType,
