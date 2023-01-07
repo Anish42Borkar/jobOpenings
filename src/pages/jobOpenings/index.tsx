@@ -113,8 +113,15 @@ const JobOpenings = () => {
     });
   }
 
-  const onChange = (e: any) => {
+  const onKeyDown = (e: any) => {
     if (e.code === "Enter") {
+      localStorage.setItem("search", searchBoxRef.current.value);
+      getData();
+    }
+  };
+
+  const onChange = (e: any) => {
+    if (e.target.value === "") {
       localStorage.setItem("search", searchBoxRef.current.value);
       getData();
     }
@@ -139,7 +146,8 @@ const JobOpenings = () => {
       <div className=" bg-primary py-8 px-8">
         <InputField
           ref={searchBoxRef}
-          onKeyDown={onChange}
+          onKeyDown={onKeyDown}
+          onChange={onChange}
           placeholder="Search for Job "
           symbol={<MagnifyingGlassIcon className="h-6 w-6 text-green-500" />}
         />
