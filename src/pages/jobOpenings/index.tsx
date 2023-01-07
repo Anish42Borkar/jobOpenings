@@ -33,6 +33,11 @@ const JobOpenings = () => {
   ) {
     let list = [...state];
 
+    if (list.find((obj) => obj.id === data.id)) {
+      ref.current!.value = "";
+      return;
+    }
+
     list.push({
       id: data.id,
       title: data.title,
@@ -66,14 +71,14 @@ const JobOpenings = () => {
     useApiResquestHandler();
 
   async function getData() {
-    const location = state.map((val) => {
+    const location = state?.map((val) => {
       if (val.filter === "location") return val.id;
     });
-    const department = state.map((val) => {
+    const department = state?.map((val) => {
       if (val.filter === "departmemt") return val.id;
     });
 
-    const functions = state.map((val) => {
+    const functions = state?.map((val) => {
       if (val.filter === "functions") return val.id;
     });
 
@@ -138,7 +143,7 @@ const JobOpenings = () => {
           placeholder="Search for Job "
           symbol={<MagnifyingGlassIcon className="h-6 w-6 text-green-500" />}
         />
-        <div className="flex mt-8 gap-5 justify-center">
+        <div className=" flex mt-8 gap-5 justify-center flex-wrap">
           <DropdownSearchBox
             data={requstedDataDepartmemt}
             placeholder="Department "
@@ -168,9 +173,9 @@ const JobOpenings = () => {
         </div>
       </div>
 
-      <div className=" bg-primary py-8 px-8 h-20 mt-6 flex justify-between items-center ">
-        <div className="flex">
-          {state.map((val, key) => {
+      <div className=" bg-primary py-8 px-8 h-min-20 mt-6 flex justify-between items-center ">
+        <div className="flex flex-wrap">
+          {state?.map((val, key) => {
             return (
               <Badges
                 key={key}
@@ -188,29 +193,31 @@ const JobOpenings = () => {
         </button>
       </div>
 
-      {Object.keys(filteredList).map((dept: string, key: number) => {
+      {Object.keys(filteredList)?.map((dept: string, key: number) => {
         return (
           <Fragment key={key}>
             <div className="mt-10">
               <p className="font-bold text-3xl">{dept}</p>
-              <div className="h-2 w-20 mt-1 bg-blue-500 " />
+              <div className="h-1.5 w-20 mt-1 bg-blue-500 " />
               <div className="mt-8">
-                {filteredList[dept].map((subDept, key) => {
+                {filteredList[dept]?.map((subDept, key) => {
                   return (
                     <Fragment key={key}>
-                      <div className="hover:bg-secoundary mb-4 flex justify-between items-end py-3 px-3">
+                      <div className="hover:bg-secoundary mb-4 flex flex-wrap gap-2 justify-between items-end py-3 px-3">
                         <div className="">
-                          <p className="font-bold text-xl mb-2">
-                            {subDept.title}
-                          </p>
-                          <div className="flex gap-5">
-                            <div className="flex items-center">
+                          <div className="">
+                            <p className="  font-bold text-xl mb-2">
+                              {subDept.title}
+                            </p>
+                          </div>
+                          <div className="flex gap-5 flex-wrap ">
+                            <div className="flex items-center gap-1">
                               <BuildingOfficeIcon className="w-4 h-4 text-gray-400" />
                               <p className="text-sm">
                                 {subDept.department?.title}
                               </p>
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-center gap-1">
                               <MapPinIcon className="w-4 h-4 text-gray-400" />
                               <p className="text-sm ">
                                 {subDept.location.title}
@@ -229,6 +236,7 @@ const JobOpenings = () => {
                             Apply
                           </a>
                           <NavLink
+                            state={{ jobOpenings: filteredList[dept] }}
                             to={`details/${subDept.id}`}
                             className="text-sm hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full"
                           >
