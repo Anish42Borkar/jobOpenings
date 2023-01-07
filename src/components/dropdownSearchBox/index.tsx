@@ -62,7 +62,7 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
         />
 
         <div
-          className={`absolute w-full  ${
+          className={`absolute w-full z-50  ${
             !focused && "hidden "
           } top-16  right-0 md:right-auto shadow-xl   rounded bg-white  `}
         >
