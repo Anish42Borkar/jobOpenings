@@ -214,9 +214,13 @@ const JobOpenings = () => {
                       <div className="hover:bg-secoundary mb-4 flex flex-wrap gap-2 justify-between items-end py-3 px-3">
                         <div className="">
                           <div className="">
-                            <p className="  font-bold text-xl mb-2">
+                            <NavLink
+                              state={{ jobOpenings: filteredList[dept] }}
+                              to={`details/${subDept.id}`}
+                              className="  font-bold text-xl mb-2 hover:text-link transition-all"
+                            >
                               {subDept.title}
-                            </p>
+                            </NavLink>
                           </div>
                           <div className="flex gap-5 flex-wrap ">
                             <div className="flex items-center gap-1">
