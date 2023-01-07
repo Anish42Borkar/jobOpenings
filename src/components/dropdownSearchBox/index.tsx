@@ -40,9 +40,7 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
   useEffect(() => {
     document.querySelector(selectors!)?.addEventListener("click", (e) => {
       if (document.activeElement === searchBoxRef.current) {
-        console.log("element has focus");
       } else {
-        console.log("element does NOT have focus");
         onBlur();
       }
     });
