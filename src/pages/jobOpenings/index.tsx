@@ -145,7 +145,7 @@ const JobOpenings = () => {
           placeholder="Search for Job "
           symbol={<MagnifyingGlassIcon className="h-6 w-6 text-green-500" />}
         />
-        <div className=" flex mt-8 gap-5 justify-center flex-wrap">
+        <div className=" flex mt-8 gap-5 justify-center flex-wrap md:flex-nowrap">
           <DropdownSearchBox
             data={requstedDataDepartmemt}
             placeholder="Department "
@@ -220,7 +220,7 @@ const JobOpenings = () => {
                             <div className="flex items-center gap-1">
                               <BuildingOfficeIcon className="w-4 h-4 text-gray-400" />
                               <p className="text-sm">
-                                {subDept.department?.title}
+                                {subDept.department?.title ?? "N/A"}
                               </p>
                             </div>
                             <div className="flex items-center gap-1">

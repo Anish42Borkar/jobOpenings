@@ -7,6 +7,11 @@ import facebookIcon from "../../assets/icons/facebook.svg";
 import linkedInIcon from "../../assets/icons/linkedin.svg";
 import twitterIcon from "../../assets/icons/twitter.svg";
 
+async function shareLink(url: string) {
+  const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+  if (newWindow) newWindow.opener = null;
+}
+
 const JobDetails = () => {
   const params = useParams();
   const location = useLocation();
@@ -102,19 +107,32 @@ const JobDetails = () => {
             <p className="font-bold text-xl">SHARE JOB OPENINGS</p>
             <div className="h-1.5 w-20 mt-1 bg-blue-500 " />
             <div className="mt-5 flex gap-3">
-              <div className="p-2 border rounded-full w-fit h-fit">
+              <div
+                onClick={() => shareLink("https://www.facebook.com/teknorix/")}
+                className="p-2 border rounded-full w-fit h-fit"
+              >
                 <img className="h-8 w-8" src={facebookIcon} alt="Your SVG" />
               </div>
 
-              <a
-                href="https://github.com/Anish42Borkar"
-                target="_blank"
+              <div
+                onClick={() =>
+                  shareLink(
+                    "https://www.linkedin.com/company/teknorix/?originalSubdomain=in"
+                  )
+                }
                 className="p-2 border rounded-full w-fit h-fit"
               >
                 <img className="h-8 w-8" src={linkedInIcon} alt="Your SVG" />
-              </a>
+              </div>
 
-              <div className="p-2 border rounded-full w-fit h-fit">
+              <div
+                onClick={() =>
+                  shareLink(
+                    "https://www.linkedin.com/company/teknorix/?originalSubdomain=in"
+                  )
+                }
+                className="p-2 border rounded-full w-fit h-fit"
+              >
                 <img className="h-8 w-8" src={twitterIcon} alt="Your SVG" />
               </div>
             </div>
