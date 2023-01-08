@@ -4,6 +4,10 @@ export type StateProps = {
   filter: string;
 };
 
+export type FilteredList = {
+  [key: string]: ResponseData[];
+};
+
 export interface ResponseData {
   id: number;
   code: string;

@@ -133,7 +133,7 @@ const JobOpenings = () => {
 
   const filteredList: {
     [key: string]: ResponseData[];
-  } = filterData(requstedData);
+  } = Array.isArray(requstedData) ? filterData(requstedData) : [];
 
   return (
     <div className="py-7 px-9">
