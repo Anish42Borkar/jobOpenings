@@ -14,6 +14,7 @@ import DropdownSearchBox, {
 import useApiResquestHandler from "../../hooks/useApiRequestHandler";
 import Badges from "./badges";
 import { NavLink } from "react-router-dom";
+import Loading from "../../components/loading";
 
 const JobOpenings = () => {
   const searchBoxRef = useRef<any>(null);
@@ -55,7 +56,8 @@ const JobOpenings = () => {
     localStorage.setItem("filterList", JSON.stringify([]));
   }
 
-  const { request, requstedData } = useApiResquestHandler<ResponseData[]>();
+  const { request, requstedData, isLoading } =
+    useApiResquestHandler<ResponseData[]>();
 
   const { request: requestFunctions, requstedData: requstedDataFunctions } =
     useApiResquestHandler<DropdownSearchBoxDataType[]>();
@@ -195,6 +197,8 @@ const JobOpenings = () => {
           Clear All
         </button>
       </div>
+
+      <p className="text-center mt-1">{isLoading && <Loading />}</p>
 
       {Object.keys(filteredList)?.map((dept: string, key: number) => {
         return (
