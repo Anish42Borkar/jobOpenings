@@ -139,6 +139,7 @@ const JobOpenings = () => {
     <div className="py-7 px-9">
       <div className=" bg-primary py-8 px-8">
         <InputField
+          callBack={getData}
           ref={searchBoxRef}
           onKeyDown={onKeyDown}
           onChange={onChange}

@@ -9,7 +9,6 @@ export type DropdownSearchBoxDataType = {
 type DropdownSearchBoxProps = {
   selectors?: string;
   placeholder?: string;
-  onChange?: (e: any) => void;
   onClick?: (
     e: DropdownSearchBoxDataType,
     ref: RefObject<HTMLInputElement>
@@ -17,16 +16,17 @@ type DropdownSearchBoxProps = {
   isLoading?: boolean;
   symbol?: JSX.Element;
   data: Array<DropdownSearchBoxDataType>;
+  callBack?: () => void;
 };
 
 const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
   selectors,
   placeholder,
-  onChange,
   onClick,
   isLoading,
   data,
   symbol,
+  callBack = () => {},
 }) => {
   const searchBoxRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef(null as any);
@@ -35,6 +35,17 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
 
+  const [dropdownData, setDropdownData] = useState<DropdownSearchBoxDataType[]>(
+    []
+  );
+
+  function filter(str: string) {
+    const fiteredList = data.filter(
+      (val) => val.title.toLowerCase().indexOf(str) !== -1
+    );
+    setDropdownData(() => fiteredList);
+  }
+
   useEffect(() => {
     document.querySelector(selectors!)?.addEventListener("click", (e) => {
       if (document.activeElement === searchBoxRef.current) {
@@ -42,7 +53,10 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
         onBlur();
       }
     });
-  }, []);
+
+    const list = Array.isArray(data) ? data : [];
+    setDropdownData(list);
+  }, [data]);
 
   return (
     <div className="relative w-full">
@@ -52,9 +66,11 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
           ref={searchBoxRef}
           placeholder={placeholder}
           customeClass=" "
-          onChange={(e: any) => onChange!(e)}
-          onFocus={onFocus}
+          onChange={(e: any) => filter(e.target.value)}
+          onFocus={(e: any) => onFocus()}
+          onBlur={(e: any) => onBlur()}
           symbol={symbol}
+          callBack={callBack}
         />
 
         <div
@@ -71,21 +87,20 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
                 {!isLoading && data.length === 0 && "NO RECORD FOUND"}
               </p>
             )}
-            {Array.isArray(data) &&
-              data?.map((val, key) => (
-                <div
-                  key={key}
-                  className="py-2 px-4 cursor-pointer border-b-1 hover:bg-slate-100 active:bg-slate-200"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    searchBoxRef.current!.value = val.title;
-                    onClick!(val, searchBoxRef);
-                    onBlur();
-                  }}
-                >
-                  <p className="text-sm">{val.title}</p>
-                </div>
-              ))}
+            {dropdownData?.map((val, key) => (
+              <div
+                key={key}
+                className="py-2 px-4 cursor-pointer border-b-1 hover:bg-slate-100 active:bg-slate-200"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  searchBoxRef.current!.value = val.title;
+                  onClick!(val, searchBoxRef);
+                  onBlur();
+                }}
+              >
+                <p className="text-sm">{val.title}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -97,7 +112,6 @@ DropdownSearchBox.defaultProps = {
   selectors: "html",
   isLoading: false,
   placeholder: "Search",
-  onChange: (e) => {},
   onClick: (e) => {},
 };
 

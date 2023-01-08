@@ -4,5 +4,6 @@ export interface InputFieldType {
   customeClass?: string;
   props?: any;
   symbol?: JSX.Element;
+  callBack?: () => void;
   [key: string]: any;
 }
