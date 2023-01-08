@@ -15,10 +15,16 @@ m-0
 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`;
 
 const InputField: FC<InputFieldType> = forwardRef(
-  ({ type, placeholder, customeClass, symbol, ...props }, ref: any) => {
+  (
+    { type, placeholder, customeClass, symbol, callBack, ...props },
+    ref: any
+  ) => {
     return (
       <div className="w-full relative">
-        <span className="absolute top-1/2 right-3 -translate-y-1/2">
+        <span
+          onClick={() => callBack && callBack()}
+          className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2"
+        >
           {symbol}
         </span>
         <input
