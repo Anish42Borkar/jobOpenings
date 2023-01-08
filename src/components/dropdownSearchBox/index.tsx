@@ -18,6 +18,7 @@ type DropdownSearchBoxProps = {
   data: Array<DropdownSearchBoxDataType>;
   callBack?: () => void;
 };
+let clickCheck = false;
 
 const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
   selectors,
@@ -68,7 +69,6 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
           customeClass=" "
           onChange={(e: any) => filter(e.target.value)}
           onFocus={(e: any) => onFocus()}
-          onBlur={(e: any) => onBlur()}
           symbol={symbol}
           callBack={callBack}
         />
@@ -79,7 +79,7 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
           } top-16  right-0 md:right-auto shadow-xl   rounded bg-white  `}
         >
           <div
-            className="relative min-h-0  max-h-[10rem] overflow-hidden overflow-y-scroll  scrollbar-hide "
+            className="dropdownCont relative min-h-0  max-h-[10rem] overflow-hidden overflow-y-scroll  scrollbar-hide "
             ref={dropdownRef}
           >
             {searchBoxRef.current?.value !== "" && (
@@ -95,6 +95,7 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
                   e.stopPropagation();
                   searchBoxRef.current!.value = val.title;
                   onClick!(val, searchBoxRef);
+                  clickCheck = true;
                   onBlur();
                 }}
               >
