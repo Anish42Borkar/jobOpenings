@@ -18,7 +18,6 @@ type DropdownSearchBoxProps = {
   data: Array<DropdownSearchBoxDataType>;
   callBack?: () => void;
 };
-let clickCheck = false;
 
 const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
   selectors,
@@ -95,7 +94,6 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
                   e.stopPropagation();
                   searchBoxRef.current!.value = val.title;
                   onClick!(val, searchBoxRef);
-                  clickCheck = true;
                   onBlur();
                 }}
               >
