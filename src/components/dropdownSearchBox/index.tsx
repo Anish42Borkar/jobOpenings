@@ -59,7 +59,12 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
   }, [data]);
 
   return (
-    <div className="relative w-full">
+    <div
+      className="relative w-full"
+      tabIndex={1}
+      onFocus={(e: any) => onFocus()}
+      onBlur={() => onBlur()}
+    >
       <div className=" ">
         <InputField
           autoComplete="off"
@@ -67,7 +72,6 @@ const DropdownSearchBox: FC<DropdownSearchBoxProps> = ({
           placeholder={placeholder}
           customeClass=" "
           onChange={(e: any) => filter(e.target.value)}
-          onFocus={(e: any) => onFocus()}
           symbol={symbol}
           callBack={callBack}
         />
